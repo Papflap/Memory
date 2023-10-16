@@ -1,0 +1,72 @@
+﻿<Window x:Class="Memory3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Memory3"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+
+        mc:Ignorable="d"
+        Title="Memory" Height="700" Width="800">
+    
+        
+    <!-- Variables -->
+    <Window.Resources>
+        <!-- Wrapper Size -->
+        <System:Double x:Key="WrapperSize">500</System:Double>
+        <!-- Card Size -->
+        <System:Double x:Key="CardSize">150</System:Double>
+    </Window.Resources>
+    
+    <Grid>
+        <!-- Layout -->
+        <Grid.RowDefinitions>
+            <!-- Here goes the timer and score -->
+            <RowDefinition Height="100"/>
+            
+            <!-- Here go the cards -->
+            <RowDefinition Height="1*"/>
+            
+            <!-- Here go the buttons -->
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Timer -->
+        <StackPanel Grid.Row="0">
+            <TextBlock
+                        x:Name="DisplayTimer"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Text="">
+            </TextBlock>
+        </StackPanel>
+        <!-- Cards -->
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="WrapPanel" >
+            <Button Name="Card1" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card2" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card3" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card4" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card5" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card6" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card7" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card8" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card9" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card10" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card11" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card12" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+        </WrapPanel>
+        
+        <!-- Buttons -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Name="Start" Content="Start Game" FontSize="30" Click="Button_Onclick"/>
+            <Button Grid.Column="1" Name="Stop" Content="Stop" FontSize="30" Click="Button_Onclick"/>
+            <Button Grid.Column="2" Name="Restart" Content="Restart" FontSize="30" Click="Button_Onclick"/>
+        </Grid>
+        
+    </Grid>
+</Window>
