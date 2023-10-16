@@ -57,30 +57,30 @@ namespace Memory3
 
         private class MemoryGame
         {
-            private readonly int[] _cards = new int[AmountOfCards];
+            private readonly int[] _cards;
             private int _conditionCounter = 0;
-            private Button[] _buttons;
+            private readonly Button[] _buttons;
             private int _counter = 0;
-            private int[] _clicked = new int[2];
-            private bool[] _opened = new bool[AmountOfCards];
+            private readonly int[] _clicked = new int[2];
+            private readonly bool[] _opened = new bool[AmountOfCards];
 
-            public MemoryGame(Button?[] buttons, int[] cards)
+            public MemoryGame(Button[] buttons, int[] cards)
             {
                 _buttons = buttons;
                 _cards = cards;
                 InitCards(buttons);
             }
 
-            private void InitCards(Button?[] buttons)
+            private static void InitCards(Button?[] buttons)
             {
-                for (int i = 0; i < AmountOfCards; i++)
+                for (var i = 0; i < AmountOfCards; i++)
                 {
                     buttons[i]!.Opacity = 1;
                     buttons[i]!.Background = SetIcon();
                 }
             }
 
-            private ImageBrush SetIcon(CardIcons cardIcons)
+            private static ImageBrush SetIcon(CardIcons cardIcons)
             {
                 var brush = new ImageBrush
                 {
@@ -89,7 +89,7 @@ namespace Memory3
 
                 return brush;
             }
-            private ImageBrush SetIcon()
+            private static ImageBrush SetIcon()
             {
                 var brush = new ImageBrush
                 {
@@ -145,22 +145,21 @@ namespace Memory3
         //button and card handlers
         private void Card_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_currentGame == null) return;
             var buttonName = int.Parse((sender as Button).Name.Substring(4))-1;
             _currentGame.ShowCard(_buttons, buttonName);
         }
 
-        private void Button_Onclick(Object? sender, RoutedEventArgs e)
+        private void Button_Onclick(object sender, RoutedEventArgs e)
         {
             if (!_playing)
             {
                 if (sender.Equals(Start))
                 {
-                    var Icon = Enumerable.Range(1, AmountOfCards).OrderBy(x => _randomGenerate.Next()).ToArray();
+                    var icon = Enumerable.Range(1, AmountOfCards).OrderBy(x => _randomGenerate.Next()).ToArray();
                     for (int i = 0; i < AmountOfCards; i++)
                     {
                         _buttons[i] = WrapPanel.Children[i] as Button;
-                        _inputList[i] = (Icon[i] - 1) % AmountOfCards / 2 + 1;
+                        _inputList[i] = (icon[i] - 1) % AmountOfCards / 2 + 1;
                     }
 
                     _currentGame = new MemoryGame(_buttons, _inputList);
@@ -170,23 +169,23 @@ namespace Memory3
             }
             else if (sender.Equals(Restart))
             {
-                var Result = MessageBox.Show("Are you sure you want to restart?", "Restart", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (!Result.Equals(MessageBoxResult.Yes)) return;
+                var result = MessageBox.Show("Are you sure you want to restart?", "Restart", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (!result.Equals(MessageBoxResult.Yes)) return;
                 
-                var Icon = Enumerable.Range(1, AmountOfCards).OrderBy(x => _randomGenerate.Next()).ToArray();
-                for (int i = 0; i < AmountOfCards; i++)
+                var icon = Enumerable.Range(1, AmountOfCards).OrderBy(x => _randomGenerate.Next()).ToArray();
+                for (var i = 0; i < AmountOfCards; i++)
                 {
                     _buttons[i] = WrapPanel.Children[i] as Button;
-                    _inputList[i] = (Icon[i] - 1) % AmountOfCards / 2 + 1;
+                    _inputList[i] = (icon[i] - 1) % AmountOfCards / 2 + 1;
                 }
 
                 _currentGame = new MemoryGame(_buttons, _inputList);
             }
             else if (sender.Equals(Stop))
             {
-                var Result = MessageBox.Show("Are you sure you want to exit?", "EXIT", MessageBoxButton.YesNo,
+                var result = MessageBox.Show("Are you sure you want to exit?", "EXIT", MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
-                if (Result.Equals(MessageBoxResult.Yes))
+                if (result.Equals(MessageBoxResult.Yes))
                 {
                     Application.Current.Shutdown();
                 }
