@@ -21,24 +21,14 @@ namespace Memory3
 {
     public partial class MainWindow : Window
     {
+        DispatcherTimer _timer;
+        TimeSpan _time;
         private const int AmountOfCards = 12;
         public MainWindow()
         {
             InitializeComponent();
         }
-        
-        // private void StartTimer()
-        // {
-        //     DispatcherTimer timer = new DispatcherTimer();
-        //     timer.Tick += new EventHandler(UpdateTimer_Tick!);
-        //     timer.Interval = new TimeSpan(0, 0, 1);
-        //     timer.Start();
-        // }
-        // private void UpdateTimer_Tick(object sender, EventArgs e)
-        // {
-        //     DisplayTimer.Text = DateTime.Now.ToString();
-        // }
-
+       
         private MemoryGame _currentGame;
         private readonly Button?[] _buttons = new Button?[AmountOfCards];
         private readonly Random _randomGenerate = new Random();
@@ -82,9 +72,10 @@ namespace Memory3
 
             private ImageBrush SetIcon(CardIcons cardIcons)
             {
+
                 var brush = new ImageBrush
                 {
-                    ImageSource = new BitmapImage(new Uri(@"C:\Users\Tom\RiderProjects\Memory3\Memory3\Assets\"+cardIcons+".jpg", UriKind.RelativeOrAbsolute))
+                    ImageSource = new BitmapImage(new Uri(@"C:\Users\tom\source\repos\Memory\Memory3\Assets\"+cardIcons+".jpg", UriKind.Relative))
                 };
 
                 return brush;
@@ -93,12 +84,12 @@ namespace Memory3
             {
                 var brush = new ImageBrush
                 {
-                    ImageSource = new BitmapImage(new Uri(@"C:\Users\Tom\RiderProjects\Memory3\Memory3\Assets\questionmark.jpg", UriKind.RelativeOrAbsolute))
+                    ImageSource = new BitmapImage(new Uri(@"C:\Users\tom\source\repos\Memory\Memory3\Assets\questionmark.jpg", UriKind.Relative))
                 };
 
                 return brush;
             }
-            public void ShowCard(Button[] buttons, int index)
+            public void ShowCard(Button[] buttons, int index, TimeSpan _time, DispatcherTimer _timer)
             {
                 if (_counter == 2 || _opened[index] || _counter == 1 && _clicked[0] == index)
                     return;
@@ -109,11 +100,11 @@ namespace Memory3
                 _counter++;
                 if (_counter == 2)
                 {
-                    ButtonCompare(buttons, _clicked[0], _clicked[1]);
+                    ButtonCompare(buttons, _clicked[0], _clicked[1], _time, _timer);
                 }
             }
             
-            private void ButtonCompare(Button[] box, int check1, int check2)
+            private void ButtonCompare(Button[] box, int check1, int check2, TimeSpan _time, DispatcherTimer _timer)
             {
                 
                 if (_cards[check1] == _cards[check2])
@@ -122,7 +113,8 @@ namespace Memory3
                     _opened[check1] = true;
                     _opened[check2] = true;
                     if (_conditionCounter == AmountOfCards/2) {
-                        MessageBox.Show("You Won!!!!!");
+                        _timer.Stop(); 
+                        MessageBox.Show($"YOU WIN 100000000 BILION DOLAR. YOUR TIME: {_time}");
                     }
                     _counter = 0;
                 }
@@ -147,7 +139,7 @@ namespace Memory3
         {
             if (_currentGame == null) return;
             var buttonName = int.Parse((sender as Button).Name.Substring(4))-1;
-            _currentGame.ShowCard(_buttons, buttonName);
+            _currentGame.ShowCard(_buttons, buttonName, _time, _timer);
         }
 
         private void Button_Onclick(Object? sender, RoutedEventArgs e)
@@ -156,6 +148,8 @@ namespace Memory3
             {
                 if (sender.Equals(Start))
                 {
+                    StartTimer();
+                  
                     var Icon = Enumerable.Range(1, AmountOfCards).OrderBy(x => _randomGenerate.Next()).ToArray();
                     for (int i = 0; i < AmountOfCards; i++)
                     {
@@ -170,9 +164,17 @@ namespace Memory3
             }
             else if (sender.Equals(Restart))
             {
+                _timer.Stop();
                 var Result = MessageBox.Show("Are you sure you want to restart?", "Restart", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (!Result.Equals(MessageBoxResult.Yes)) return;
-                
+                if (!Result.Equals(MessageBoxResult.Yes))
+                {
+                    _timer.Start();
+                    return;
+                }
+                DisplayTimer.Text = "00:00:00";
+                StartTimer();
+
+
                 var Icon = Enumerable.Range(1, AmountOfCards).OrderBy(x => _randomGenerate.Next()).ToArray();
                 for (int i = 0; i < AmountOfCards; i++)
                 {
@@ -184,13 +186,28 @@ namespace Memory3
             }
             else if (sender.Equals(Stop))
             {
+                _timer.Stop();
                 var Result = MessageBox.Show("Are you sure you want to exit?", "EXIT", MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
                 if (Result.Equals(MessageBoxResult.Yes))
                 {
                     Application.Current.Shutdown();
                 }
+                _timer.Start();
             }
+        }
+
+        private void StartTimer()
+        {
+            _time = TimeSpan.Zero;
+            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+
+                _time = _time.Add(TimeSpan.FromSeconds(1));
+                DisplayTimer.Text = _time.ToString();
+
+            }, Application.Current.Dispatcher);
+            _timer.Start();
         }
     }
 }

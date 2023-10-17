@@ -16,6 +16,28 @@
         <System:Double x:Key="WrapperSize">500</System:Double>
         <!-- Card Size -->
         <System:Double x:Key="CardSize">150</System:Double>
+
+        <!-- Button no-hover -->
+        <ControlTemplate x:Key="NoMouseOverButtonTemplate"   
+                 TargetType="Button">
+            <Border Background="{TemplateBinding Background}"  
+          BorderBrush="{TemplateBinding BorderBrush}"  
+          BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled"  
+             Value="False">
+                    <Setter Property="Background"  
+              Value="{x:Static SystemColors.ControlLightBrush}" />
+                    <Setter Property="Foreground"  
+              Value="{x:Static SystemColors.GrayTextBrush}" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        
     </Window.Resources>
     
     <Grid>
@@ -34,26 +56,28 @@
         <!-- Timer -->
         <StackPanel Grid.Row="0">
             <TextBlock
-                        x:Name="DisplayTimer"
-                        FontSize="30"
-                        FontWeight="Bold"
-                        Text="">
-            </TextBlock>
+                x:Name="DisplayTimer"
+                FontSize="30"
+                FontWeight="Bold"
+                Text="00:00:00"
+                HorizontalAlignment="Center"
+                Margin="0,30,0,0"/>
+             
         </StackPanel>
         <!-- Cards -->
         <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="WrapPanel" >
-            <Button Name="Card1" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card2" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card3" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card4" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card5" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card6" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card7" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card8" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card9" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card10" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card11" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
-            <Button Name="Card12" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0"/>
+            <Button Name="Card1" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card2" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card3" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card4" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card5" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card6" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card7" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card8" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card9" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card10" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card11" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+            <Button Name="Card12" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
         </WrapPanel>
         
         <!-- Buttons -->
