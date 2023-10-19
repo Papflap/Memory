@@ -19,8 +19,9 @@ public class MemoryGame
     private int _counter = 0;
     private int[] _clicked = new int[2];
     private bool[] _opened;
+    
 
-    public MemoryGame(Button?[] buttons, int[] cards, int amountOfCards)
+    public MemoryGame(Button[] buttons, int[] cards, int amountOfCards)
     {
         _cards = new int[amountOfCards];
         _opened = new bool[amountOfCards];
@@ -83,6 +84,14 @@ public class MemoryGame
             if (_conditionCounter == _cards.Length / 2)
             {
                 _timer.Stop();
+
+                //convert _time into usable vars
+                string _timeString = _time.ToString();
+                double _timeSeconds = _time.TotalSeconds;
+
+                Highscores _highScore = new Highscores(_timeString, _timeSeconds);
+                //SqliteDataAccess.SaveHighscore(_highScore);
+                
                 MessageBox.Show($"YOU WIN 100000000 BILION DOLAR. YOUR TIME: {_time}");
             }
             _counter = 0;
@@ -100,5 +109,4 @@ public class MemoryGame
             };
         }
     }
-
 }

@@ -61,8 +61,14 @@
                 FontWeight="Bold"
                 Text="00:00:00"
                 HorizontalAlignment="Center"
-                Margin="0,30,0,0"/>
-             
+                Margin="0,0,0,0"/>
+            <TextBlock
+                x:Name="HighScore"
+                FontSize="30"
+                FontWeight="Black"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Text="x"/>
         </StackPanel>
         <!-- Cards -->
         <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="WrapPanel" >

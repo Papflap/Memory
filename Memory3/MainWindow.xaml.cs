@@ -27,6 +27,7 @@ namespace Memory3
         public MainWindow()
         {
             InitializeComponent();
+
         }
        
         private MemoryGame _currentGame;
@@ -107,6 +108,8 @@ namespace Memory3
                 _buttons[i] = WrapPanel.Children[i] as Button;
                 _inputList[i] = (Icon[i] - 1) % AmountOfCards / 2 + 1;
             }
+
+            HighScore.Text = SqliteDataAccess.LoadHighscores().ElementAt(0).ToString();
 
             _currentGame = new MemoryGame(_buttons, _inputList, AmountOfCards);
         }
