@@ -15,17 +15,20 @@ namespace Memory3
     {
         public static List<Highscores> LoadHighscores()
         {
-            using (IDbConnection conn = new SQLiteConnection(LoadConnectionString()))
-            {
-                var output = conn.Query<Highscores>("SELECT * FROM Time ORDER BY TimeDouble DESC LIMIT 10", new DynamicParameters());
-                return output.ToList();
-            }
+            using IDbConnection conn = new SQLiteConnection(LoadConnectionString());
+            
+            var output = conn.Query<Highscores>("SELECT DISTINCT * FROM Time ORDER BY TimeDouble ASC LIMIT 10", new DynamicParameters());
+            
+            return output.ToList();
         }
 
         public static void SaveHighscore(Highscores highscore)
         {
+            var timeString = highscore.TimeString;
+            var timeDouble = highscore.TimeDouble;
+            
             using IDbConnection conn = new SQLiteConnection(LoadConnectionString());
-            conn.Execute("INSERT INTO Time (TimeString, TimeDouble) VALUES (@TimeString, @TimeDouble)", highscore);
+            conn.Execute($"INSERT INTO Time (TimeDouble) VALUES ({timeDouble})");
         }
 
         private static string LoadConnectionString(string id="Default")

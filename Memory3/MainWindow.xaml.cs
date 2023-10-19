@@ -21,13 +21,12 @@ namespace Memory3
 {
     public partial class MainWindow : Window
     {
-        DispatcherTimer _timer;
-        TimeSpan _time;
-        public const int AmountOfCards = 12;
+        private DispatcherTimer _timer;
+        private TimeSpan _time;
+        private const int AmountOfCards = 12;
         public MainWindow()
         {
             InitializeComponent();
-
         }
        
         private MemoryGame _currentGame;
@@ -35,16 +34,13 @@ namespace Memory3
         private readonly Random _randomGenerate = new Random();
         private readonly int[] _inputList = new int[AmountOfCards];
         private bool _playing;
-        
 
-        
         private void Card_OnClick(object sender, RoutedEventArgs e)
         {
             if (_currentGame == null) return;
             var buttonName = int.Parse((sender as Button).Name.Substring(4))-1;
             _currentGame.ShowCard(_buttons, buttonName, _time, _timer);
         }
-
 
        //handler for three buttons
         private void Button_Onclick(Object sender, RoutedEventArgs e)
@@ -67,7 +63,8 @@ namespace Memory3
                     _timer.Start();
                     return;
                 }
-
+                
+                LastScore.Text = "Last score: \n" + MemoryGame.GetLastScore() + " seconds";
                 StartGame();
             }
             //stop button
@@ -86,13 +83,13 @@ namespace Memory3
 
         private void StartTimer()
         {
-            DisplayTimer.Text = "00:00:00";
+            DisplayTimer.Text = "Time: \n 00:00:00";
             _time = TimeSpan.Zero;
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
 
                 _time = _time.Add(TimeSpan.FromSeconds(1));
-                DisplayTimer.Text = _time.ToString();
+                DisplayTimer.Text = "Time: \n"+_time.ToString();
 
             }, Application.Current.Dispatcher);
             _timer.Start();
@@ -109,9 +106,14 @@ namespace Memory3
                 _inputList[i] = (Icon[i] - 1) % AmountOfCards / 2 + 1;
             }
 
-            HighScore.Text = SqliteDataAccess.LoadHighscores().ElementAt(0).ToString();
-
             _currentGame = new MemoryGame(_buttons, _inputList, AmountOfCards);
+        }
+
+        private void Highscore_OnClick(object sender, RoutedEventArgs e)
+        {
+            HighscoreWindow highscoreWindow = new HighscoreWindow();
+            highscoreWindow.Show();
+
         }
     }
 }

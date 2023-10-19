@@ -8,13 +8,13 @@ namespace Memory3
 {
     public class Highscores
     {
-        string TimeString;
-        double TimeDouble;
+        public readonly string TimeString;
+        public readonly double TimeDouble;
             
-        public Highscores(string _timeString, double _timeDouble)
+        public Highscores(string timeString, double timeDouble)
         {
-            TimeString = _timeString;
-            TimeDouble = _timeDouble;
+            this.TimeString = timeString;
+            this.TimeDouble = timeDouble;
         }
     }
 }

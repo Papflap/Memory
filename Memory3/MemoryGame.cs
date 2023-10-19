@@ -19,6 +19,8 @@ public class MemoryGame
     private int _counter = 0;
     private int[] _clicked = new int[2];
     private bool[] _opened;
+
+    private static double lastScore;
     
 
     public MemoryGame(Button[] buttons, int[] cards, int amountOfCards)
@@ -44,7 +46,7 @@ public class MemoryGame
 
         var brush = new ImageBrush
         {
-            ImageSource = new BitmapImage(new Uri(@"C:\Users\tom\source\repos\Memory\Memory3\Assets\" + cardIcons + ".jpg", UriKind.Relative))
+            ImageSource = new BitmapImage(new Uri(@"C:\Users\Tom\RiderProjects\Memory3\Memory3\Assets\"+cardIcons+".jpg", UriKind.Relative))
         };
 
         return brush;
@@ -53,7 +55,7 @@ public class MemoryGame
     {
         var brush = new ImageBrush
         {
-            ImageSource = new BitmapImage(new Uri(@"C:\Users\tom\source\repos\Memory\Memory3\Assets\questionmark.jpg", UriKind.Relative))
+            ImageSource = new BitmapImage(new Uri(@"C:\Users\Tom\RiderProjects\Memory3\Memory3\Assets\questionmark.jpg", UriKind.Relative))
         };
 
         return brush;
@@ -84,13 +86,16 @@ public class MemoryGame
             if (_conditionCounter == _cards.Length / 2)
             {
                 _timer.Stop();
-
+                
                 //convert _time into usable vars
-                string _timeString = _time.ToString();
-                double _timeSeconds = _time.TotalSeconds;
-
-                Highscores _highScore = new Highscores(_timeString, _timeSeconds);
-                //SqliteDataAccess.SaveHighscore(_highScore);
+                var timeString = _time.ToString();
+                var timeSeconds = _time.TotalSeconds;
+                
+                SetLastScore(timeSeconds);
+                
+                Highscores _highScore = new Highscores(timeString, timeSeconds);
+                
+                SqliteDataAccess.SaveHighscore(_highScore);
                 
                 MessageBox.Show($"YOU WIN 100000000 BILION DOLAR. YOUR TIME: {_time}");
             }
@@ -108,5 +113,29 @@ public class MemoryGame
                 _counter = 0;
             };
         }
+    }
+    
+    public static double getHighscore()
+    {
+        List<Highscores> highscoresList = SqliteDataAccess.LoadHighscores();
+        double highScore = highscoresList[0].TimeDouble;
+
+        for (int i = 0; i < highscoresList.Count; i++)
+        {
+            if (highscoresList[i].TimeDouble < highScore)
+            {
+                highScore = highscoresList[i].TimeDouble;
+            }
+        }
+        return highScore;
+    }
+
+    private void SetLastScore(double last)
+    {
+        lastScore = last;
+    }
+    public static double GetLastScore()
+    {
+        return lastScore;
     }
 }
