@@ -24,6 +24,7 @@
             FontSize="25"
             FontWeight="Bold"
             Name="HighScores"
-            Text=""/>
+            Text=""
+            IsReadOnly="true"/>
     </Grid>
 </Window>
