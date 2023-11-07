@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Memory3
+﻿namespace Memory3
 {
     public class CardNames
     {
+        //enum based on image names found in /Assets/
+        //ignore the warnings
         public enum CardIcons
         {
             first = 1,

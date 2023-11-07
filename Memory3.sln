@@ -5,6 +5,10 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memory3", "Memory3\Memory3.csproj", "{E93153EC-ACED-4757-AB26-DF64AAEBF304}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{3270DC6E-9A31-4FFC-B03A-2272955DA1F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{2D1F182A-1920-4946-8591-239576BEA15F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E93153EC-ACED-4757-AB26-DF64AAEBF304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E93153EC-ACED-4757-AB26-DF64AAEBF304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E93153EC-ACED-4757-AB26-DF64AAEBF304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3270DC6E-9A31-4FFC-B03A-2272955DA1F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3270DC6E-9A31-4FFC-B03A-2272955DA1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3270DC6E-9A31-4FFC-B03A-2272955DA1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3270DC6E-9A31-4FFC-B03A-2272955DA1F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D1F182A-1920-4946-8591-239576BEA15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1F182A-1920-4946-8591-239576BEA15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D1F182A-1920-4946-8591-239576BEA15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D1F182A-1920-4946-8591-239576BEA15F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
