@@ -7,7 +7,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
 
         mc:Ignorable="d"
-        Title="Memory" Height="700" Width="800">
+        Title="Memory" Height="700" Width="700">
     
         
     <!-- Variables -->
@@ -19,7 +19,7 @@
 
         <!-- Button no-hover -->
         <ControlTemplate x:Key="NoMouseOverButtonTemplate"   
-                 TargetType="Button">
+                 TargetType="Button" x:Name = "NoHoverTemplate">
             <Border Background="{TemplateBinding Background}"  
           BorderBrush="{TemplateBinding BorderBrush}"  
           BorderThickness="{TemplateBinding BorderThickness}">
@@ -37,6 +37,8 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        
+        
         
     </Window.Resources>
     
@@ -83,19 +85,8 @@
             </Grid>
         </StackPanel>
         <!-- Cards -->
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="WrapPanel" >
-            <Button Name="Card1" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card2" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card3" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card4" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card5" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card6" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card7" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card8" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card9" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card10" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card11" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
-            <Button Name="Card12" Content="" Width="{StaticResource CardSize}" Height="{StaticResource CardSize}" Click="Card_OnClick" Opacity="0" Template="{StaticResource NoMouseOverButtonTemplate}"/>
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="WrapPanel">
+            
         </WrapPanel>
         
         <!-- Buttons -->
@@ -104,10 +95,16 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="Start" Content="Start Game" FontSize="30" Click="Button_Onclick"/>
-            <Button Grid.Column="1" Name="Stop" Content="Stop" FontSize="30" Click="Button_Onclick"/>
-            <Button Grid.Column="2" Name="Restart" Content="Restart" FontSize="30" Click="Button_Onclick"/>
+            
+            <ComboBox Grid.Column="0" Name="Sets" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="50">
+                
+            </ComboBox>
+            
+            <Button Grid.Column="1" Name="Start" Content="Start Game" FontSize="30" Click="Button_Onclick"/>
+            <Button Grid.Column="2" Name="Stop" Content="Stop" FontSize="30" Click="Button_Onclick"/>
+            <Button Grid.Column="3" Name="Restart" Content="Restart" FontSize="30" Click="Button_Onclick"/>
         </Grid>
         
     </Grid>

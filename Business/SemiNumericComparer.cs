@@ -13,6 +13,12 @@ public class SemiNumericComparer: IComparer<string>
     //check which one of the two parameters is greater
     public int Compare(string s1, string s2)
     {
+        s1 = s1[..s1.IndexOf(" ", StringComparison.Ordinal)];
+        s2 = s2[..s2.IndexOf(" ", StringComparison.Ordinal)];
+        
+        Console.WriteLine(s1);
+        Console.WriteLine(s2);
+        Console.WriteLine();
         //returns based on which parameter is greater
         const int s1GreaterThanS2 = 1;
         const int s2GreaterThanS1 = -1;

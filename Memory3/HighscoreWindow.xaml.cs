@@ -14,8 +14,8 @@ public partial class HighscoreWindow : Window
         for (int i = 0; i < highscoresList.Count; i++)
         {
             //Display the score with the index (+1). 
-            //List is already sorted, so it just loops from highest to loweset
-            HighScores.Text += $"Nr {i+1}: {highscoresList[i]} seconds!";
+            //List is already sorted, so it just loops from highest to lowest
+            HighScores.Text += $"Nr {i+1}: {highscoresList[i]}";
             if (i == 0)
             {
                 //if it is the first score aka the best score - display so
