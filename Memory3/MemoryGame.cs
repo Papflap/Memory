@@ -10,6 +10,7 @@ namespace Memory3;
 public class MemoryGame
 {
     //variables
+    private int turns = 0;
     private readonly int[] _cards;
     private int _conditionCounter = 0;
     private Button[] _buttons;
@@ -71,7 +72,7 @@ public class MemoryGame
     }
 
     //turn card
-    public void ShowCard(Button[] buttons, int index, TimeSpan time, DispatcherTimer timer)
+    public void ShowCard(Button[] buttons, int index, TimeSpan time, DispatcherTimer timer, int cardsClicked, int amountOfCards)
     {
         //_counter == 2 -->  2 cards have already been turned
         //_opened[index] --> the card that the player is trying to turn is already turned
@@ -90,12 +91,12 @@ public class MemoryGame
         if (_counter == 2)
         {
             //if so, compare them
-            ButtonCompare(buttons, _clicked[0], _clicked[1], time, timer);
+            ButtonCompare(buttons, _clicked[0], _clicked[1], time, timer, cardsClicked, amountOfCards);
         }
     }
 
     //here the program compares two clicked cards
-    private void ButtonCompare(Button[] box, int check1, int check2, TimeSpan time, DispatcherTimer timer)
+    private void ButtonCompare(Button[] box, int check1, int check2, TimeSpan time, DispatcherTimer timer, int cardsClicked, int amountOfCards)
     {
         //if the images of the two cards are the same then enter the if-statement
         if (_cards[check1] == _cards[check2])
@@ -107,9 +108,12 @@ public class MemoryGame
             _opened[check1] = true;
             _opened[check2] = true;
             
-            //check if all pairs are found
+            //check if all pairs are found - win
             if (_conditionCounter == _cards.Length / 2)
             {
+                //calculate amount of turns
+                var amountOfTurns = cardsClicked / 2;
+                
                 //stop the timer
                 timer.Stop();
                 
@@ -121,10 +125,10 @@ public class MemoryGame
                 SetLastScore(timeSeconds);
                 
                 //save highscore
-                var highScore = new Highscores(timeString, timeSeconds);
+                var highScore = new Highscores(timeString, timeSeconds, amountOfTurns, amountOfCards);
                 
                 //write to txt
-                Highscores.SaveHighscore(highScore.TimeString);
+                Highscores.SaveHighscore(highScore.TimeString, highScore.Score, amountOfTurns, amountOfCards);
                 
                 //show player that they have won
                 MessageBox.Show($"YOU WIN! YOUR TIME: {time}");

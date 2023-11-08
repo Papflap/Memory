@@ -4,21 +4,27 @@
     {
         //path to .txt file is stored in GetTxtPath.cs
         private static readonly string Path = GetTxtPath.getTxtPath();
-        
-        public readonly string TimeString;
-        public readonly double TimeDouble;
 
-        public Highscores(string timeString, double timeDouble)
+        public readonly string TimeString; //used to display time
+        public readonly double TimeDouble; //used to calculate score
+        public readonly double Score;
+        public readonly int AmountOfCards;
+
+        public Highscores(string timeString, double timeDouble, int amountOfTurns, int amountOfCards)
         {
             TimeString = timeString;
             TimeDouble = timeDouble;
+            AmountOfCards = amountOfCards;
+            
+            //((Aantal kaarten)^2 / (Tijd in seconden * aantal pogingen)) * 1000
+            Score = Math.Floor(((amountOfCards*amountOfCards) / (timeDouble*amountOfTurns))*1000);
         }
 
         //save the highscore in a .txt file
-        public static void SaveHighscore(string highScore)
+        public static void SaveHighscore(string time, double score, int amountOfTurns, int amountOfCards)
         {
             using var writer = new StreamWriter(Path, true);
-            writer.WriteLine(highScore, Environment.NewLine);
+            writer.WriteLine($"{score} | {time} | {amountOfTurns} turns | {amountOfCards/2} sets", Environment.NewLine);
         }
 
         //retrieve highscores
@@ -56,8 +62,15 @@
 
         private static List<string> SortHighscores(List<string> list)
         {
-            //sort and remove duplicates
-            return list.OrderBy(x => x, new SemiNumericComparer()).Distinct().ToList();
+            var sortedList = Sort(list);
+            return sortedList;
+        }
+
+        private static List<string> Sort(List<string> list)
+        {
+            //remove duplicate entries
+            var sortedList = list.Distinct().OrderByDescending(x => x, new SemiNumericComparer()).ToList();
+            return sortedList;
         }
     }
 }
